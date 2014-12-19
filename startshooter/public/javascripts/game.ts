@@ -14,6 +14,7 @@ class Game {
     public rightScore: Phaser.Text;
 
     public firedLasers: { laser: Phaser.Sprite; direction: number; }[] = [];
+    public timeSinceLastShot: number = new Date().getTime();
 
     public game: Phaser.Game;
 
@@ -136,7 +137,11 @@ class Game {
 
 
             if (this.spaceBar.isDown) {
-                this.fireLaser();
+                if ( Math.abs(this.timeSinceLastShot - new Date().getTime()) > 200) {
+                    this.fireLaser();
+                    this.timeSinceLastShot = new Date().getTime();
+                }
+                
             }
 
 
@@ -161,9 +166,8 @@ class Game {
         var direction: number = this.controlledFighter === this.leftFighter ? 1 : -1,
             laser: Phaser.Sprite = this.generateLaser(this.controlledFighter.position.x,
                                                       this.controlledFighter.position.y);
-                
+
         this.socket.emit('laser-fired');
-                
         
         this.firedLasers.push({
             laser: laser,
@@ -194,6 +198,7 @@ class Game {
                         } else {
                             this.leftScore.text = (parseInt(this.leftScore.text) + 1).toString();
                         }
+
                     }
 
             }, null, this);
