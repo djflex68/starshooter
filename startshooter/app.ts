@@ -1,10 +1,15 @@
 ﻿import express = require('express');
-import routes = require('./routes/index');
-import user = require('./routes/user');
+import stylus = require('stylus');
 import http = require('http');
 import path = require('path');
 
+import routes = require('./routes/index');
+import socketMng = require('./sockets-manager');
+
 var app = express();
+var server = http.createServer(app);
+
+socketMng.initSocketIO(server);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -17,7 +22,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 
-import stylus = require('stylus');
+
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,8 +32,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function () {
+server.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
