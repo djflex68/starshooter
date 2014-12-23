@@ -48,6 +48,10 @@
     <TypeScriptCompile Include="Scripts\typings\socket.io\socket.io.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\stylus\stylus.d.ts" />
     <Content Include="package.json" />
+    <Content Include="public\explosion-animation.json" />
+    <Content Include="public\asteroid-animation.json" />
+    <Content Include="public\imgs\asteroid-sprite.png" />
+    <Content Include="public\imgs\explosion-sprite.png" />
     <Content Include="public\imgs\laser.png" />
     <Content Include="public\imgs\redfighter-left.png" />
     <Content Include="public\imgs\redfighter-right.png" />

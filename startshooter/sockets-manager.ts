@@ -2,6 +2,7 @@
 declare var io: any;
 var io;
 var sockets: any[] = [];
+var scores: number[] = [0, 0];
 
 function affectRole(socket) {
     if (sockets.length === 0) {
